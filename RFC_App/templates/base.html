@@ -22,6 +22,8 @@
         <span class="navbar-brand"><i class=""></i></span>
 
         <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link text-light text-uppercase px-3" href="{% url 'landingPage' %}">Landing Page</a>
+            </li>
             <li class="nav-item"><a class="nav-link text-light text-uppercase px-3" href="">User Forum</a>
             </li>
             <li class="nav-item"><a class="nav-link text-light text-uppercase px-3" href="">Tech Support</a></li>
@@ -34,18 +36,18 @@
                 </span>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-light text-uppercase px-3" href="">
+                <a class="nav-link text-light text-uppercase px-3" href="{% url 'signout' %}">
                   sign out <i class="fas fa-sign-out-alt"></i>
                 </a>
               </li>
             {% else %}
             <li class="nav-item">
-              <a class="nav-link text-light text-uppercase px-3" href="">
+              <a class="nav-link text-light text-uppercase px-3" href="{% url 'signup' %}">
                 sign up <i class="fas fa-user-plus"></i>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-light text-uppercase px-3" href="">
+              <a class="nav-link text-light text-uppercase px-3" href="{% url 'signin' %}">
                 sign in <i class="fas fa-sign-in-alt"></i>
               </a>
             </li>
@@ -53,7 +55,7 @@
         </ul>
     </nav>
     
-    <!-- { %  url '' % } (without spaces on the backets) this will be used in the href section '' will contain the related name per their respective views/url directory -->
+    <!-- { % url '' % } (without spaces on the backets) this will be used in the href section '' will contain the related name per their respective views/url directory -->
 
     {% block content %}
 

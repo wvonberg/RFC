@@ -41,3 +41,6 @@ def signin(request):
 def signout(request):
     logout(request)
     return redirect('signin')
+
+def forum(request):
+    return render(request,"forum.html")

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title }}</title>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <nav>
+                <h3>The place to find the best User-Driven Support for your Robot Vacuum</h3>
+                <ul>
+                    <a href="#">User Forum</a>
+                    <a href="#">Tech Support</a>
+                    <a href="#">Buy/Sell/Trade</a>
+                    <a href="#" class="loginReq">Rules</a>
+                </ul>
+                <a href="">Login or Register</a>
+            </nav>
+        </div>
+        {% block content %}{% endblock %}
+        <div id="footer">
+            <p>Roomba fight club is in no way affiliated with iRobot or its subsidiaries </p>
+        </div>
+    </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</html>

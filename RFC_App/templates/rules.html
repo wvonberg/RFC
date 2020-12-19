@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} 
+Rules
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <h1>Rules</h1>
+        <p><span class="rules">Rule #1:</span> You do not talk about Robot Vac Fight Club.</p>
+        <p><span class="rules">Rule #2:</span> You do NOT talk about Robot Vac Fight Club.</p>
+        <p><span class="rules">Rule #3:</span> If a robot says "Stop", goes non-functional, or taps out by flashing a red light, the fight is over.</p>
+        <p><span class="rules">Rule #4:</span> Only two bots to a fight.</p>
+        <p><span class="rules">Rule #5:</span> One fight at a time.</p>
+        <p><span class="rules">Rule #6:</span> No Shirts, No Shoes.</p>
+        <p><span class="rules">Rule #7:</span> Fights will go on as long as they have to.</p>
+        <p><span class="rules">8th and final rule:</span> If this is your first night at Robot Vac Fight Club, you HAVE to fight.</p>
+        <div id="easy"></div>
+    </div>
+    <form id="speakeasy" action="/speakeasy" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="doorknock" value="{{user.id}}">
+    </form>
+
+    <!-- JS for the Code -->
+    <script>
+        // Setting Variable to track button input.
+        var code = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        // Setting Variable to track inputs.
+        var correct = 0;
+        // function to track keys and update correct.
+        var keyTracker = function(event){
+            // Reset if key pressed isn't next in line
+            if (code.indexOf(event.key) < 0 || event.key !== code[correct]) {
+                correct = 0;
+                return;
+            }
+            // Increase correct to next value
+            console.log(code[correct])
+            correct++;
+
+            // If all keys correct, reset correct, send AJAX to update Profile and activate Speak easy
+            if(code.length === correct){
+                // reset correct
+                correct = 0;
+                // Submit the hidden form which will allow for the DB change
+                $('form').first().submit();
+            }
+        };
+        // Listener for the Code
+        document.addEventListener('keydown', keyTracker, false);
+        // ajax call for the hidden form
+        $('#speakeasy').submit(function(e){
+            e.preventDefault()
+            $.ajax({
+                url: '/speakeasy',
+                method: 'post',
+                data: $(this).serialize(),
+                success: function(serverResponse){
+                    console.log('Access Granted')
+                    $('#easy').html(serverResponse)
+                }
+            })
+        })
+    </script>
+{% endblock %}

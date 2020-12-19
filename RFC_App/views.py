@@ -5,6 +5,7 @@ from django.contrib.auth.models import Group, User
 from .forms import SignUpForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
+from django.http import HttpResponseRedirect
 
 def home(request):
     return render(request,"landingPage.html")
@@ -43,4 +44,40 @@ def signout(request):
     return redirect('signin')
 
 def forum(request):
-    return render(request,"forum.html")
+    context = {
+        #'user': User.objects.get(pk=request.user.pk),
+        'user_posts': Post.objects.all(),
+    }
+    return render(request,"forum.html", context)
+
+def add_post(request):
+    if request.user.is_authenticated:
+        user = request.user
+        if request.method == "POST":
+            post = Post.objects.create(title=request.POST['title'], body=request.POST['body'], author=User.objects.get(pk=request.user.pk))
+        print('post')
+        return redirect('/forum')
+    return redirect('/landingPage')
+
+
+        #post = Post.objects.create(body=request.POST['body'], author=User.objects.get(id=request.session['username']))
+
+def add_comment(request, id):
+    #if 'user_id' not in request.session:
+    #    return redirect('/')
+    if request.method == "POST":
+        user = User.objects.get(pk=request.user.pk)
+        post = Post.objects.get(id=id)
+        Comment.objects.create(comment=request.POST['comment'], user=user, post=post)
+        return redirect(f"/goto_post/{post.id}")
+    return redirect('/forum')
+
+def single_post_page(request, id):
+    post_with_id = Post.objects.filter(id=id)
+    if len(post_with_id) > 0:
+        context = {
+            'post': Post.objects.get(id=id)
+        }
+        return render(request, 'single_post_page.html', context)
+    else:
+        return redirect('/landingPage')

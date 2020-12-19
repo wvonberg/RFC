@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} 
+Single Post Page
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-1">
+    <div class="row mt-2">
+        <div class="col-10 mx-auto my-4">
+        </div>
+        <div class="col-10 mx-auto my-1">
+          <div>    
+            <h1 class="product_title">{{post.title}}</h1>
+            <p>{{post.author.first_name}} {{post.author.last_name}} - {{post.created_at}}</p>
+            <p class="product_description">post body below</p>
+            <p class="text-justify product_text">{{post.body}}</p>
+          </div>
+        </div> 
+    </div>
+</div>
+
+<div class="container py-1">
+    <div class="row mt-2">
+        <div class="col-10 mx-auto my-4">
+        </div>
+        <div class="col-10 mx-auto my-1">
+          <div>    
+            {% for comment in post.post_comments.all %}
+            <h5>user: {{comment.user.first_name}} {{comment.user.last_name}}</h5>
+            <p>{{comment.comment}}</p>
+            {% endfor %}
+          </div>
+        </div> 
+    </div>
+</div>
+
+<div class="container py-1">
+    <div class="row mt-2">
+        <div class="col-10 mx-auto my-4">
+        </div>
+        <div class="col-10 mx-auto my-1">
+          <div>    
+            <h2>add a comment</h2>
+            <form action="/add_comment/{{post.id}}" method="POST">
+                {% csrf_token %}
+                <textarea name="comment" placeholder="Write your comment here dummy!" cols="60" rows="7"></textarea> <br>
+                <input type="submit" name="Post a comment">
+            </form>
+          </div>
+        </div> 
+    </div>
+</div>
+
+
+
+
+
+
+<!-- col-md-6 -->
+
+{% endblock %}

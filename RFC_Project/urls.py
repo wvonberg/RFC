@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 """RFC_Project URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -14,6 +15,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 # from django.contrib import admin
+=======
+from django.contrib import admin
+>>>>>>> 2348c331957ed8c97582379e9b88be78c1e0df8c
 from django.urls import path,include
 
 urlpatterns = [

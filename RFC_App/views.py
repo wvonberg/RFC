@@ -83,6 +83,10 @@ def single_post_page(request, id):
     else:
         return redirect('/landingPage')
 
+def tech_support(request, id):
+    return render(request,"techsupport.html")
+
+
 # @login_required(login_url=signin)
 def rules(request):
     return render(request, 'rules.html')
@@ -98,5 +102,8 @@ def speakeasy(request):
         #     new_profile = Profile.objects.create(user=get_user, speakeasy=True)
         return render(request, 'speakeasy.html')
     return redirect('rules')
+
+def arena(request):
+    pass
 
 

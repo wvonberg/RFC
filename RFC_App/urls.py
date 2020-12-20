@@ -10,6 +10,8 @@ urlpatterns = [
     path('add_post', views.add_post, name='add_post'),
     path('add_comment/<int:id>', views.add_comment),
     path('goto_post/<int:id>', views.single_post_page),
+    path('techsupport', views.tech_support, name='techsupport'),
     path('rules', views.rules, name='rules'),
-    path('speakeasy', views.speakeasy, name='speakeasy')
+    path('speakeasy', views.speakeasy, name='speakeasy'),
+    path('arena', views.arena, name='arena')
 ]

@@ -107,4 +107,9 @@ def speakeasy(request):
         return render(request, 'speakeasy.html')
     return redirect('rules')
 
-
+def techsupport(request):
+    if request.method == 'POST':
+        form = TechSupportForm(request.POST)
+        if form.is_valid():
+            form.save()
+    return render(request,'techsupport.html')

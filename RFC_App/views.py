@@ -91,16 +91,13 @@ def single_post_page(request, id):
     else:
         return redirect('/landingPage')
 
-def tech_support(request, id):
-    return render(request,"techsupport.html")
-
 
 # @login_required(login_url=signin)
 def rules(request):
     return render(request, 'rules.html')
 
 def speakeasy(request):
-    if request.method == "POST":
+    # if request.method == "POST":
         # get_user = User.objects.get(pk=request.user.pk)
         # if user.profile:
         #     get_profile = Profile.objects.get(user=get_user)
@@ -109,9 +106,18 @@ def speakeasy(request):
         # else:
         #     new_profile = Profile.objects.create(user=get_user, speakeasy=True)
         return render(request, 'speakeasy.html')
-    return redirect('rules')
+    # return redirect('rules')
 
 def arena(request):
-    pass
+    # if request.method == "POST":
+        # get_user = User.objects.get(pk=request.user.pk)
+        # if user.profile:
+        #     get_profile = Profile.objects.get(user=get_user)
+        #     get_profile.speakeasy = True
+        #     get_profile.save()
+        # else:
+        #     new_profile = Profile.objects.create(user=get_user, speakeasy=True)
+        return render(request, 'arena.html')
+    # return redirect('arena')
 
 

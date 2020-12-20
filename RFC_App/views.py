@@ -6,6 +6,7 @@ from .forms import SignUpForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponseRedirect
+from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
 
 def home(request):
@@ -17,9 +18,16 @@ def signup(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            signup_user = User.objects.get(username=username)
+            password = form.cleaned_data.get('password1')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('landingPage')
+            else:
+                raise ValidationError('Registration Unsuccesful please try again')
             #customer_group = Group.objects.get(name='Customer')
             #customer_group.user_set.add(signup_user)
+        return render(request, 'signup.html', {'form': form})
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})

@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from .models import *
 from django.contrib import messages
 from django.contrib.auth.models import Group, User
-from .forms import SignUpForm
+from .forms import SignUpForm,TechSupportForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponseRedirect
@@ -66,7 +66,7 @@ def add_post(request):
             post = Post.objects.create(title=request.POST['title'], body=request.POST['body'], author=User.objects.get(pk=request.user.pk))
         print('post')
         return redirect('/forum')
-    return redirect('/landingPage')
+    return redirect('landingPage')
 
 
         #post = Post.objects.create(body=request.POST['body'], author=User.objects.get(id=request.session['username']))
@@ -120,4 +120,22 @@ def arena(request):
         return render(request, 'arena.html')
     # return redirect('arena')
 
+# validates that a user is logged in prior to being able to access code
+@login_required(login_url=signin)
 
+# takes in information from forms and user input and processes form -saves to db 
+def techsupport(request):
+    if request.method == 'POST':
+        form = TechSupportForm(request.POST)
+        if form.is_valid():
+            form_temp=form.save(commit=False)
+            requestor = User.objects.get(pk=request.user.pk)
+            form_temp.requestor=requestor
+            form_temp.save()
+            return redirect("/techsupport")
+        else:
+            raise ValidationError('404! Unable to submit - try again')
+        return render(request,'techsupport.html', {'form':form})
+    else:
+        form=TechSupportForm()
+    return render(request,'techsupport.html',{'form': form})

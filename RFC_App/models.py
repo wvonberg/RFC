@@ -49,4 +49,8 @@ class Request(models.Model):
 
 
     
-
+class Support(models.Model):
+    message=models.TextField()
+    requestor=models.ForeignKey(User,related_name="requests", on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

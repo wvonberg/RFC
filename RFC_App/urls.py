@@ -12,5 +12,6 @@ urlpatterns = [
     path('goto_post/<int:id>', views.single_post_page),
     path('rules', views.rules, name='rules'),
     path('speakeasy', views.speakeasy, name='speakeasy'),
-    path('techsupport',views.techsupport, name='techsupport')
+    path('techsupport',views.techsupport, name='techsupport'),
+    path('arena', views.arena, name='arena')
 ]

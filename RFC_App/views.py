@@ -71,14 +71,18 @@ def add_post(request):
 
         #post = Post.objects.create(body=request.POST['body'], author=User.objects.get(id=request.session['username']))
 
-def add_comment(request, id):
+def add_comment(request):
     #if 'user_id' not in request.session:
     #    return redirect('/')
     if request.method == "POST":
+        pid = request.POST['pid']
         user = User.objects.get(pk=request.user.pk)
-        post = Post.objects.get(id=id)
+        post = Post.objects.get(id=pid)
         Comment.objects.create(comment=request.POST['comment'], user=user, post=post)
-        return redirect(f"/goto_post/{post.id}")
+        context = {
+            'post': Post.objects.get(id=pid)
+        }
+        return render(request, 'comment.html', context)
     return redirect('/forum')
 
 def single_post_page(request, id):

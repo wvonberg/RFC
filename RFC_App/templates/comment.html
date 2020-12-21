@@ -1,0 +1,4 @@
+{% for comment in post.post_comments.all %}
+    <h5>user: {{comment.user.first_name}} {{comment.user.last_name}}</h5>
+    <p>{{comment.comment}}</p>
+{% endfor %}

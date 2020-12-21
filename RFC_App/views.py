@@ -65,11 +65,26 @@ def add_post(request):
         if request.method == "POST":
             post = Post.objects.create(title=request.POST['title'], body=request.POST['body'], author=User.objects.get(pk=request.user.pk))
         print('post')
-        return redirect('/forum')
+        context = {
+            'user_posts': Post.objects.all(),
+        }
+        return render(request,"posts.html", context)
     return redirect('landingPage')
 
 
         #post = Post.objects.create(body=request.POST['body'], author=User.objects.get(id=request.session['username']))
+
+def add_comment_forum(request):
+    if request.method == "POST":
+        pid = request.POST['pid']
+        user = User.objects.get(pk=request.user.pk)
+        post = Post.objects.get(id=pid)
+        Comment.objects.create(comment=request.POST['comment'], user=user, post=post)
+        context = {
+            'user_posts': Post.objects.all(),
+        }
+        return render(request, 'posts.html', context)
+    return redirect('/forum')
 
 def add_comment(request):
     #if 'user_id' not in request.session:

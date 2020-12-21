@@ -46,11 +46,13 @@ class Request(models.Model):
     
     def __str__(self):
         return self.bot_name + ' | ' + self.owner
-
-
-    
+  
 class Support(models.Model):
     message=models.TextField()
     requestor=models.ForeignKey(User,related_name="requests", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+class Profile(models.Model):
+    user=models.OneToOneField(User,on_delete=models.CASCADE,primary_key=True)
+    speakeasy=models.BooleanField(default=False)

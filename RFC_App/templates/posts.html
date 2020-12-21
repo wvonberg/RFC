@@ -1,0 +1,24 @@
+{% for post in user_posts %}
+
+<a href="/goto_post/{{post.id}}">
+    <h4>{{post.title}}</h4>
+</a>
+<p>{{post.author.first_name}} {{post.author.last_name}} - {{post.created_at}}</p>
+<p>{{post.body}}</p>
+
+
+{% for comment in post.post_comments.all %}
+<h5>user: {{comment.user.first_name}} {{comment.user.last_name}}</h5>
+<p>{{comment.comment}}</p>
+{% endfor %}
+
+{% if request.user.is_authenticated %}
+<h2>add a comment</h2>
+<form class="forum-comment" action="/add_comment_forum" method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="pid" value="{{post.id}}">
+    <textarea name="comment" placeholder="Write your comment here dummy!" cols="30" rows="7"></textarea> <br>
+    <input type="submit" name="Post a comment">
+</form>
+{% endif %}
+{% endfor %}

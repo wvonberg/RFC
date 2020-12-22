@@ -14,5 +14,6 @@ urlpatterns = [
     path('rules', views.rules, name='rules'),
     path('speakeasy', views.speakeasy, name='speakeasy'),
     path('techsupport',views.techsupport, name='techsupport'),
-    path('arena', views.arena, name='arena')
+    path('arena', views.arena, name='arena'),
+    path('match_request', views.match_request, name='match_request'),
 ]

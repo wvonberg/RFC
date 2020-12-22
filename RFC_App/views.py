@@ -139,16 +139,13 @@ def speakeasy(request):
     return redirect('rules')
 
 def arena(request):
-    # if request.method == "POST":
-        # get_user = User.objects.get(pk=request.user.pk)
-        # if user.profile:
-        #     get_profile = Profile.objects.get(user=get_user)
-        #     get_profile.speakeasy = True
-        #     get_profile.save()
-        # else:
-        #     new_profile = Profile.objects.create(user=get_user, speakeasy=True)
-        return render(request, 'arena.html')
-    # return redirect('arena')
+    return render(request, 'arena.html')
+
+# allowing for Users in the Arena to submit their address for a match location request
+def match_request(request):
+    request.session['address'] = request.POST['location']
+    return redirect('arena')
+
 
 # validates that a user is logged in prior to being able to access code
 @login_required(login_url=signin)

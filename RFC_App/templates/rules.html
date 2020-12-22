@@ -8,15 +8,7 @@ Rules
 {% block content %}
 
     <div class="container">
-        <h1>Rules</h1>
-        <p><span class="rules">Rule #1:</span> You do not talk about Robot Vac Fight Club.</p>
-        <p><span class="rules">Rule #2:</span> You do NOT talk about Robot Vac Fight Club.</p>
-        <p><span class="rules">Rule #3:</span> If a robot says "Stop", goes non-functional, or taps out by flashing a red light, the fight is over.</p>
-        <p><span class="rules">Rule #4:</span> Only two bots to a fight.</p>
-        <p><span class="rules">Rule #5:</span> One fight at a time.</p>
-        <p><span class="rules">Rule #6:</span> No Shirts, No Shoes.</p>
-        <p><span class="rules">Rule #7:</span> Fights will go on as long as they have to.</p>
-        <p><span class="rules">8th and final rule:</span> If this is your first night at Robot Vac Fight Club, you HAVE to fight.</p>
+        <div id="rules"><img src="{% static 'img/RFCRulesVanilla.png' %}" alt="Robo Vac Rules"></div>
         <div id="easy"></div>
     </div>
     <form id="speakeasy" action="/speakeasy" method="POST">
@@ -63,6 +55,8 @@ Rules
                     $('#easy').html(serverResponse)
                 }
             })
-        })
+            $('#rules').fadeOut("slow");
+            $('#easy').fadeIn("slow");
+        });
     </script>
 {% endblock %}

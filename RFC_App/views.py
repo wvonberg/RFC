@@ -22,6 +22,9 @@ def signup(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
+                profile_setup = Profile.objects.create(user=request.user)
+                if profile_setup.user == request.user:
+                    print(f'Profile setup for {request.user.get_short_name()}')
                 return redirect('landingPage')
             else:
                 raise ValidationError('Registration Unsuccesful please try again')
@@ -41,7 +44,13 @@ def signin(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('landingPage')
+                if hasattr(request.user, 'profile'):
+                    return redirect('landingPage')
+                else:
+                    profile_setup = Profile.objects.create(user=request.user)
+                    if profile_setup.user == request.user:
+                        print(f'Profile setup for {request.user.get_short_name()}')
+                    return redirect('landingPage')
             else:
                 return redirect('signup')
     else:
@@ -113,19 +122,21 @@ def single_post_page(request, id):
 
 # @login_required(login_url=signin)
 def rules(request):
+    if request.user.profile.speakeasy:
+        return render(request, 'speakeasyrules.html')
     return render(request, 'rules.html')
 
 def speakeasy(request):
-    # if request.method == "POST":
-        # get_user = User.objects.get(pk=request.user.pk)
-        # if user.profile:
-        #     get_profile = Profile.objects.get(user=get_user)
-        #     get_profile.speakeasy = True
-        #     get_profile.save()
-        # else:
-        #     new_profile = Profile.objects.create(user=get_user, speakeasy=True)
+    if request.method == "POST":
+        get_user = User.objects.get(pk=request.user.pk)
+        if get_user.profile:
+            get_profile = Profile.objects.get(user=get_user)
+            get_profile.speakeasy = True
+            get_profile.save()
+        else:
+            new_profile = Profile.objects.create(user=get_user, speakeasy=True)
         return render(request, 'speakeasy.html')
-    # return redirect('rules')
+    return redirect('rules')
 
 def arena(request):
     # if request.method == "POST":

@@ -39,13 +39,14 @@ class Request(models.Model):
     bot_name = models.CharField(max_length=255)
     owner = models.ForeignKey(User, related_name="x_user_request", on_delete=models.CASCADE)
     body = models.TextField()
+    location = models.CharField(max_length=255, default="Seattle, WA")
     #image = models.ImageField(null=True, blank=True, upload_to="images")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = RequestManager()
     
-    def __str__(self):
-        return self.bot_name + ' | ' + self.owner
+    # def __str__(self):
+    #     return self.bot_name + ' | ' + self.owner
   
 class Support(models.Model):
     message=models.TextField()

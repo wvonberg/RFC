@@ -28,7 +28,7 @@
             <li class="nav-item"><a class="nav-link text-light text-uppercase px-3" href="{% url 'forum' %}">User Forum</a>
             </li>
             <li class="nav-item"><a class="nav-link text-light text-uppercase px-3" href="{% url 'techsupport' %}">Tech Support</a></li>
-            <li class="nav-item"><a class="nav-link text-light text-uppercase px-3" href="">Buy/Sell/Trade</a></li>
+            <!-- <li class="nav-item"><a class="nav-link text-light text-uppercase px-3" href="">Buy/Sell/Trade</a></li> -->
             
             {% if request.user.is_authenticated and request.user.first_name %}
             <li class="nav-item"><a class="nav-link text-light text-uppercase px-3" href="{% url 'rules' %}">Rules</a></li>

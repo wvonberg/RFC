@@ -138,12 +138,17 @@ def speakeasy(request):
         return render(request, 'speakeasy.html')
     return redirect('rules')
 
+@login_required(login_url=signin)
 def arena(request):
-    return render(request, 'arena.html')
+    context = {
+        'user_requests': Request.objects.all()
+    }
+    return render(request, 'arena.html', context)
 
 # allowing for Users in the Arena to submit their address for a match location request
 def match_request(request):
-    request.session['address'] = request.POST['location']
+    if request.method == "POST":
+        new_match = Request.objects.create(bot_name=request.POST['bot_name'], owner=request.user, body = request.POST['details'], location = request.POST['user_address'])
     return redirect('arena')
 
 

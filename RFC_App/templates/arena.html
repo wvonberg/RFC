@@ -1,58 +1,64 @@
 {% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        {% block title %} 
-        Arena
-        {% endblock %}
-        <style type="text/css">
-            #map {
-                height: 200px;
-                width: 400px;
+
+{% block title %}
+Arena
+{% endblock %}
+
+{% block content %}
+<!-- <style type="text/css">
+    #map {
+        height: 200px;
+        width: 400px;
+    }
+</style> -->
+<h1>ROBO VAC BATTLE ARENA</h1>
+<div id="forms">
+    <div class="form">
+        <h2>Create a Match Request</h2>
+        <form action="{% url 'match_request' %}" method="POST">
+            {% csrf_token %}
+            <textarea name="bot_name" placeholder="Your Bot Name Here" cols="40" rows="1"></textarea>
+            <br>
+            <textarea name="details" placeholder="Match Details" cols="40" rows="5"></textarea> <br>
+            <h4>Enter a Requested Match Location:</h4>
+            <input type="text" name='user_address' id='user_address'>
+            <input type="submit" name="Submit Request">
+        </form>
+    </div>
+</div>
+    
+{% for request in user_requests %}
+<div id="map"></div>
+{{request.owner}}
+{{request.body}}
+<p class='user_address'>{{request.location}}</p>
+
+{% endfor %}
+<script>
+    function initMap() {
+        var geocoder = new google.maps.Geocoder();
+        var user_address = document.getElementByClass('user_address').innerHTML;
+        geocoder.geocode({ 'address': user_address }), function (results, status) {
+            if (status == 'OK') {
+                console.log('results')
+                var latLng = results[0].geometry.location;
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: latLng,
+                    zoom: 8,
+                });
+                var marker = new google.maps.Marker({ position: location, map: map });
+            } else {
+                alert("ERROR " + status);
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: location,
+                    zoom: 8,
+                });
             }
-        </style>
-    </head>
-    <body>
-        {% block content %}
-        <h1>THE BATTLE ARENA</h1>
-        <div id="forms">
-            <div class="form">
-                <h2>Create a Match Request</h2>
-                <form action="{% url 'match_request' %}" method="POST">
-                    {% csrf_token %}
-                    <textarea name="title" placeholder="Your Bot Name Here" cols="40" rows="2"></textarea>
-                    <br>
-                    <textarea name="body" placeholder="Match Details" cols="40" rows="6"></textarea> <br>
-                    <div id="map"></div>
-                    <h3>Enter the Requested Match Location:</h3>
-                    <input type="text" name='location'>
-                    <input type="submit" name="Submit Request">
-                    <script>
-                        var map;
-                        function initMap() {
-                            var location = { lat: -34.397, lng: 150.644 }
-                            var geocoder = new google.maps.Geocoder();
-                            var user_address = 
-                            map = new google.maps.Map(document.getElementById("map"), {
-                            center: location,
-                            zoom: 8,
-                            });
-                            var marker = new google.maps.Marker({position: location, map: map});
-                        }
-                    </script>
-                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-CWd07gsMBS06eKpLCoYO3K2X5Q3xWh0&callback=initMap&libraries=&v=weekly" async defer>
-                    </script>
-                </form>
-            </div>
-        </div>
-        
-        {% for request in user_requests %}
+        }
+    }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-CWd07gsMBS06eKpLCoYO3K2X5Q3xWh0&callback=initMap&libraries=&v=weekly"></script>
 
-        {% endfor %}
 
-        {% endblock %}
-    </body>
-</html>
+{% endblock %}

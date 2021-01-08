@@ -1,4 +1,8 @@
 {% for comment in post.post_comments.all %}
-    <h5>user: {{comment.user.first_name}} {{comment.user.last_name}}</h5>
-    <p>{{comment.comment}}</p>
+<div class="media mt-1 pl-3 border border-secondary rounded bg-secondary">
+    <div class="media-body p-1 text-light">
+        <h5>user: {{comment.user.first_name}} {{comment.user.last_name}}</h5>
+        <p>{{comment.comment}}</p>
+    </div>
+</div>
 {% endfor %}

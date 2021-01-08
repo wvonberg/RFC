@@ -26,16 +26,16 @@
   <title>{% block title %} {% endblock %}</title>
 </head>
 
-<body>
+<body class="bg-dark">
 
   <nav class="navbar navbar-expand-md navbar-light bg-dark">
 
-    <span class="navbar-brand"><i class=""></i></span>
-
+    {% if request.user.profile.speakeasy %}
+    <a class="navbar-brand text-light text-uppercase px-3 font-weight-bold" href="{% url 'landingPage' %}">RoboVac Fight Club</a>
+    {% else %}
+    <a class="navbar-brand text-light text-uppercase px-3 font-weight-bold" href="{% url 'landingPage' %}">RoboVac Club</a>
+    {% endif %}
     <ul class="navbar-nav">
-      <li class="nav-item"><a class="nav-link text-light text-uppercase px-3" href="{% url 'landingPage' %}">Landing
-          Page</a>
-      </li>
       <li class="nav-item"><a class="nav-link text-light text-uppercase px-3" href="{% url 'forum' %}">User Forum</a>
       </li>
       <li class="nav-item"><a class="nav-link text-light text-uppercase px-3" href="{% url 'techsupport' %}">Tech

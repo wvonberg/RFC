@@ -8,7 +8,7 @@ Rules
 {% block content %}
     <div class="container">
         <div id="rules"><img src="{% static 'img/RFCRulesVanilla.png' %}" alt="Robo Vac Rules"></div>
-        <div id="easy"></div><br><br>
+        <div id="easy" style="display: none;"></div><br><br>
     </div>
     <form id="speakeasy" action="/speakeasy" method="POST">
         {% csrf_token %}
@@ -54,8 +54,9 @@ Rules
                     $('#easy').html(serverResponse)
                 }
             })
-            $('#rules').fadeOut("slow");
-            $('#easy').fadeIn("slow");
+            $('#rules').fadeOut(2000).promise().done(function(){
+                $('#easy').fadeIn(3000);
+            });
         });
     </script>
 {% endblock %}

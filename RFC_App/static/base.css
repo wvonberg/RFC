@@ -57,6 +57,14 @@
     z-index: -1;
 }
 
+img {
+    width: 45%;
+    margin: 2% 0 0 28%;
+    border-radius: 15px;
+    box-shadow: 5px 5px 5px black;
+    
+}
+
 .navbar {
     background-image: linear-gradient(black, rgb(48, 47, 47), black);
 }

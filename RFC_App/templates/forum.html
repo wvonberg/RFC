@@ -8,20 +8,23 @@ Forum
 {% block content %}
 
 <div class="container py-1">
-    <h1>Roomba User Forum</h1>
+    <h1 class="text-light">Roomba User Forum</h1>
     
     
-    <div class="col-10 mx-auto my-1">
-        <div id="forms">
+    <div class="col-10 mx-auto my-1 py-3">
+        <div id="forms" class="border border-dark rounded p-3">
             {% if request.user.is_authenticated %}
             <div class="form">
-                <h2>Create a Post</h2>
+                <h2 class="text-light">Create a Post</h2>
                 <form id="forum-post" action="{% url 'add_post' %}" method="POST">
                     {% csrf_token %}
-                    <textarea name="title" placeholder="Title your post?" cols="30" rows="2"></textarea>
-                    <br>
-                    <textarea name="body" placeholder="What's your post?" cols="30" rows="10"></textarea> <br>
-                    <input type="submit" name="Submit Post">
+                    <div class="form-group">
+                      <textarea name="title" placeholder="Title your post?" class="form-control" rows="1"></textarea>
+                    </div>
+                    <div class="form-group">
+                      <textarea name="body" placeholder="What's your post?" class="form-control"></textarea>
+                    </div>
+                    <input type="submit" class="btn btn-warning text-light" name="Submit Post">
                 </form>
             </div>
             {% endif %}
@@ -32,28 +35,39 @@ Forum
 <div class="container py-1">
     <div id="posts" class="col-10 mx-auto my-1">
         {% for post in user_posts %}
-        
-        <a href="/goto_post/{{post.id}}">
-            <h4>{{post.title}}</h4>
-        </a>
-        <p>{{post.author.first_name}} {{post.author.last_name}} - {{post.created_at}}</p>
-        <p>{{post.body}}</p>
-        
-        
-        {% for comment in post.post_comments.all %}
-        <h5>user: {{comment.user.first_name}} {{comment.user.last_name}}</h5>
-        <p>{{comment.comment}}</p>
-        {% endfor %}
-        
-        {% if request.user.is_authenticated %}
-        <h2>add a comment</h2>
-        <form class="forum-comment" action="/add_comment_forum" method="POST">
-            {% csrf_token %}
-            <input type="hidden" name="pid" value="{{post.id}}">
-            <textarea name="comment" placeholder="Write your comment here dummy!" cols="30" rows="7"></textarea> <br>
-            <input type="submit" name="Post a comment">
-        </form>
-        {% endif %}
+        <div class="media mb-4 border border-dark rounded p-3 bg-light">
+          <div class="media-body">
+            <a href="/goto_post/{{post.id}}" class="mt-0">
+                <h3 class="text-capitalize font-weight-bold text-danger">{{post.title}}</h3>
+            </a>
+            <p class="font-weight-light">{{post.author.first_name}} {{post.author.last_name}} - {{post.created_at}}</p>
+            <p class="border border-info rounded bg-white p-2">{{post.body}}</p>
+            
+            {% if request.user.is_authenticated %}
+            <h5>Add a Comment:</h5>
+            <form class="forum-comment" action="/add_comment_forum" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="pid" value="{{post.id}}">
+                <div class="form-group">
+                  <textarea name="comment" placeholder="Write your comment here dummy!" class="form-control" rows="1"></textarea>
+                </div>
+                <input type="submit" class="btn btn-warning text-light" name="Post a comment">
+            </form>
+            {% endif %}
+            
+            <div class="mt-4">
+              {% for comment in post.post_comments.all %}
+              <div class="media mt-1 pl-3 border border-secondary rounded bg-secondary ">
+                <div class="media-body p-1 text-light">
+                  <h5 class="mt-1 text-white">user: {{comment.user.first_name}} {{comment.user.last_name}}</h5>
+                  {{comment.comment}}
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            
+          </div>
+        </div>
         {% endfor %}
     </div>
 </div>

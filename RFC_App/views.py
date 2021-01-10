@@ -10,18 +10,9 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
 
 def home(request):
-    if request.user.pk is None:
-        return render(request,"landingPage.html")
-    if request.user.pk is not None:
-        user_detect=Profile.objects.get(user=request.user.pk)
-        if user_detect is None:
-            return render(request,"landingPage.html")
-        if user_detect is not None:
-            speakeasy_detect = user_detect.speakeasy
-            if speakeasy_detect is True:
-                return render(request,"speakeasy_landing.html")
-            return render(request,"landingPage.html")
-        return render(request,"landingPage.html")
+    if request.user.is_authenticated:
+        if request.user.profile.speakeasy:
+            return render(request,"speakeasy_landing.html")
     return render(request,"landingPage.html")
 
 def signup(request):

@@ -12,53 +12,35 @@ Arena
         width: 400px;
     }
 </style> -->
-<h1>ROBO VAC BATTLE ARENA</h1>
+<h1 class="text-danger text-center">ROBO VAC BATTLE ARENA</h1>
 <div id="forms">
-    <div class="form">
-        <h2>Create a Match Request</h2>
+    <div class="form text-light text-center">
+        <h2>Create an Event</h2>
         <form action="{% url 'match_request' %}" method="POST">
             {% csrf_token %}
-            <textarea name="bot_name" placeholder="Your Bot Name Here" cols="40" rows="1"></textarea>
+            <textarea name="bot_name" placeholder="Your Event Name Here" cols="40" rows="1"></textarea>
             <br>
-            <textarea name="details" placeholder="Match Details" cols="40" rows="5"></textarea> <br>
-            <h4>Enter a Requested Match Location:</h4>
-            <input type="text" name='user_address' id='user_address'>
-            <input type="submit" name="Submit Request">
+            <textarea name="details" placeholder="Event Details" cols="40" rows="5"></textarea><br>
+            <input type="text" name='user_address' id='user_address' placeholder="Enter event address here"><br><br>
+            <input type="submit" class="bg-warning text-dark" name="Submit Request"><br><br>
         </form>
     </div>
 </div>
     
 {% for request in user_requests %}
-<div id="map"></div>
-{{request.owner}}
-{{request.body}}
-<p class='user_address'>{{request.location}}</p>
-
+    <table id="arena-table" class="table-bordered text-light">
+        <th>       
+            <td>Event</td>
+            <td>Owner</td>
+            <td>Location</td>
+        </th>
+        <tr>
+            <td></td>
+            <td><a href="/event/{{request.id}}">{{request.bot_name}}</a></td>
+            <td>{{request.owner}}</td>
+            <td>{{request.location}}</td>
+        </tr>
+    </table>
+{{request.id}}
 {% endfor %}
-<script>
-    function initMap() {
-        var geocoder = new google.maps.Geocoder();
-        var user_address = document.getElementByClass('user_address').innerHTML;
-        geocoder.geocode({ 'address': user_address }), function (results, status) {
-            if (status == 'OK') {
-                console.log('results')
-                var latLng = results[0].geometry.location;
-                map = new google.maps.Map(document.getElementById('map'), {
-                    center: latLng,
-                    zoom: 8,
-                });
-                var marker = new google.maps.Marker({ position: location, map: map });
-            } else {
-                alert("ERROR " + status);
-                map = new google.maps.Map(document.getElementById('map'), {
-                    center: location,
-                    zoom: 8,
-                });
-            }
-        }
-    }
-</script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-CWd07gsMBS06eKpLCoYO3K2X5Q3xWh0&callback=initMap&libraries=&v=weekly"></script>
-
-
 {% endblock %}

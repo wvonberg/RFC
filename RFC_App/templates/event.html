@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{{event.bot_name}}
+{% endblock %}
+
+{% block content %}
+<h1 class="text-danger text-center">Event happening: {{event.bot_name}}!</h1> <br>
+<div class="text-light text-center">
+   <p class="text-warning">Creator:</p><p>{{event.owner}}</p>
+   <p class="text-warning">Where:</p> <p id="event-location">{{event.location}}</p>
+   <p class="text-warning">What:</p> <p>{{event.body}}</p>
+    <p class="text-warning">Last update:</p> <p>{{event.updated_at}}</p>
+</div> <br>
+<div id="event-map"></div> <br><br>
+<button type="button" id="event-button" class="bg-warning text-dark">
+    <a id="arena-return" href="{% url 'arena' %}">Back to the Arena!</a>
+</button>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnUWrN0eVNZ5Ju5cnjhdn9mmmfy-FCUqM&callback=initMap"
+        type="text/javascript"></script>
+
+    <script>
+        // Initialize and add the map
+        function initMap() {
+            // The location of Uluru
+            geocoder = new google.maps.Geocoder();
+            geocoder.geocode({
+                'address': document.getElementById("event-location").innerHTML
+            }, function (results, status) {
+                if (status == 'OK') {
+                    const map = new google.maps.Map(document.getElementById('event-map'), {
+                        zoom: 12,
+                        center: results[0].geometry.location,
+                    });
+                    var marker = new google.maps.Marker({
+                        map: map,
+                        position: results[0].geometry.location
+                    });
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        }
+    </script>
+{%endblock%}

@@ -174,3 +174,10 @@ def techsupport(request):
     else:
         form=TechSupportForm()
     return render(request,'techsupport.html',{'form': form})
+
+@login_required(login_url=signin)
+def event(request,eventid):
+    context = {
+        'event': Request.objects.get(id=eventid)
+    }
+    return render(request,"event.html",context)

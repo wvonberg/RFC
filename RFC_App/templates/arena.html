@@ -6,11 +6,47 @@ Arena
 {% endblock %}
 
 {% block content %}
+
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-CWd07gsMBS06eKpLCoYO3K2X5Q3xWh0&callback=initMap&libraries=&v=weekly" type="text/javascript"></script>
+<script>
+    function initMap() {
+        geocoder = new google.maps.Geocoder();
+        const user_address = document.getElementById('user_address').innerHTML;
+        geocoder.geocode({ 'address': user_address }), function (results, status) {
+            if (status == 'OK') {
+                console.log('results')
+                const latLng = results[0].geometry.location;
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: latLng,
+                    zoom: 8,
+                });
+                const marker = new google.maps.Marker({ position: location, map: map });
+            } else {
+                alert("ERROR " + status);
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: location,
+                    zoom: 8,
+                });
+            }
+        }
+    }
+</script>
+
 <style type="text/css">
     #map {
         height: 200px;
         width: 400px;
     }
+    #forms {
+        background-color: black;
+        color: grey
+    }
+    h1 {
+        background-color: darkslategrey;
+        color: red
+    }
+    
 </style>
 <h1>ROOMBA BATTLE ARENA</h1>
 <div id="forms">
@@ -32,33 +68,8 @@ Arena
 <div id="map"></div>
 {{request.owner}}
 {{request.body}}
-<p class='user_address'>{{request.location}}</p>
+<p id='user_address'>{{request.location}}</p>
 
 {% endfor %}
-<script>
-    function initMap() {
-        var geocoder = new google.maps.Geocoder();
-        var user_address = document.getElementByClass('user_address').innerHTML;
-        geocoder.geocode({ 'address': user_address }), function (results, status) {
-            if (status == 'OK') {
-                console.log('results')
-                var latLng = results[0].geometry.location;
-                map = new google.maps.Map(document.getElementById('map'), {
-                    center: latLng,
-                    zoom: 8,
-                });
-                var marker = new google.maps.Marker({ position: location, map: map });
-            } else {
-                alert("ERROR " + status);
-                map = new google.maps.Map(document.getElementById('map'), {
-                    center: location,
-                    zoom: 8,
-                });
-            }
-        }
-    }
-</script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-CWd07gsMBS06eKpLCoYO3K2X5Q3xWh0&callback=initMap&libraries=&v=weekly"></script>
-
 
 {% endblock %}

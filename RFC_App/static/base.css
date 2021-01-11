@@ -68,3 +68,24 @@ img {
 .navbar {
     background-image: linear-gradient(black, rgb(48, 47, 47), black);
 }
+
+.arena-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25px;
+    background: #090cb8;
+    padding: 20px;
+    width: 600px;
+    height: 150px;
+    box-shadow: rgb(225, 233, 241) 0px 20px 30px -10px;
+}
+
+.arenah1 {
+    font-family: 'Teko', sans-serif;
+    color: rgb(255, 255, 255);
+}
+
+#arena-text {
+    color: white
+}

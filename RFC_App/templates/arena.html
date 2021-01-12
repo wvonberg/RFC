@@ -38,6 +38,7 @@ Arena
         height: 200px;
         width: 400px;
     }
+<<<<<<< HEAD
     #forms {
         background-color: black;
         color: grey
@@ -49,22 +50,26 @@ Arena
     
 </style>
 <h1>ROOMBA BATTLE ARENA</h1>
+=======
+</style> -->
+<h1 class="text-danger text-center">ROBO VAC BATTLE ARENA</h1>
+>>>>>>> f7cbc7b4330c86cfa36682150815df02e1de7544
 <div id="forms">
-    <div class="form">
-        <h2>Create a Match Request</h2>
+    <div class="form text-light text-center">
+        <h2>Create an Event</h2>
         <form action="{% url 'match_request' %}" method="POST">
             {% csrf_token %}
-            <textarea name="bot_name" placeholder="Your Bot Name Here" cols="40" rows="1"></textarea>
+            <textarea name="bot_name" placeholder="Your Event Name Here" cols="40" rows="1"></textarea>
             <br>
-            <textarea name="details" placeholder="Match Details" cols="40" rows="5"></textarea> <br>
-            <h4>Enter a Requested Match Location:</h4>
-            <input type="text" name='user_address' id='user_address'>
-            <input type="submit" name="Submit Request">
+            <textarea name="details" placeholder="Event Details" cols="40" rows="5"></textarea><br>
+            <input type="text" name='user_address' id='user_address' placeholder="Enter event address here"><br><br>
+            <input type="submit" class="bg-warning text-dark" name="Submit Request"><br><br>
         </form>
     </div>
 </div>
     
 {% for request in user_requests %}
+<<<<<<< HEAD
 <div id="map"></div>
 {{request.owner}}
 {{request.body}}
@@ -72,4 +77,21 @@ Arena
 
 {% endfor %}
 
+=======
+    <table id="arena-table" class="table-bordered text-light">
+        <th>       
+            <td>Event</td>
+            <td>Owner</td>
+            <td>Location</td>
+        </th>
+        <tr>
+            <td></td>
+            <td><a href="/event/{{request.id}}">{{request.bot_name}}</a></td>
+            <td>{{request.owner}}</td>
+            <td>{{request.location}}</td>
+        </tr>
+    </table>
+{{request.id}}
+{% endfor %}
+>>>>>>> f7cbc7b4330c86cfa36682150815df02e1de7544
 {% endblock %}

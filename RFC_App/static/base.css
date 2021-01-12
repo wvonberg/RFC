@@ -57,7 +57,7 @@
     z-index: -1;
 }
 
-img {
+#rules > img {
     width: 45%;
     margin: 2% 0 0 28%;
     border-radius: 15px;
@@ -67,4 +67,33 @@ img {
 
 .navbar {
     background-image: linear-gradient(black, rgb(48, 47, 47), black);
+}
+
+#arena-table {
+    border: 3px solid rgb(148, 147, 147);
+    margin: 0 auto;
+    width: auto;
+    font-weight: bolder;
+    font-family:'Trebuchet MS';
+    font-size: 24px;
+}
+
+#event-map {
+    height: 400px;
+    width: 30%;
+    margin-left: 36%;
+}
+
+#event-button {
+    margin-left: 47%;
+}
+
+button {
+    border-radius: 10px;
+}
+
+#arena-return {
+    text-decoration: none;
+    color: rgb(37, 37, 37);
+    font-weight: bolder;
 }

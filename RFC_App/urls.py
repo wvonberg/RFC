@@ -16,4 +16,5 @@ urlpatterns = [
     path('techsupport',views.techsupport, name='techsupport'),
     path('arena', views.arena, name='arena'),
     path('match_request', views.match_request, name='match_request'),
+    path('event/<int:eventid>',views.event, name="event"),
 ]

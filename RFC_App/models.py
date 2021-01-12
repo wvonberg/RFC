@@ -6,9 +6,9 @@ class PostManager(models.Manager):
     def validator(self, form):
         errors = {}
         if len(form['title']) < 3:
-            errors['length'] = "Title must be at least 3 characters!"
+            errors['length'] = "Title must be at least 3 characters!!"
         if len(form['body']) < 8:
-            errors['length'] = "Post must be at least 8 characters!"   
+            errors['length'] = "Post must be at least 8 characters!!"   
         return errors
 
 class Post(models.Model):

@@ -38,22 +38,8 @@ Arena
         height: 200px;
         width: 400px;
     }
-<<<<<<< HEAD
-    #forms {
-        background-color: black;
-        color: grey
-    }
-    h1 {
-        background-color: darkslategrey;
-        color: red
-    }
-    
-</style>
-<h1>ROOMBA BATTLE ARENA</h1>
-=======
 </style> -->
 <h1 class="text-danger text-center">ROBO VAC BATTLE ARENA</h1>
->>>>>>> f7cbc7b4330c86cfa36682150815df02e1de7544
 <div id="forms">
     <div class="form text-light text-center">
         <h2>Create an Event</h2>
@@ -69,15 +55,6 @@ Arena
 </div>
     
 {% for request in user_requests %}
-<<<<<<< HEAD
-<div id="map"></div>
-{{request.owner}}
-{{request.body}}
-<p id='user_address'>{{request.location}}</p>
-
-{% endfor %}
-
-=======
     <table id="arena-table" class="table-bordered text-light">
         <th>       
             <td>Event</td>
@@ -93,5 +70,4 @@ Arena
     </table>
 {{request.id}}
 {% endfor %}
->>>>>>> f7cbc7b4330c86cfa36682150815df02e1de7544
 {% endblock %}

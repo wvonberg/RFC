@@ -5,8 +5,10 @@ from django.contrib.auth.models import User
 class PostManager(models.Manager):
     def validator(self, form):
         errors = {}
-        if len(form['content']) < 3:
-            errors['length'] = "message must be at least 3 chars!"
+        if len(form['title']) < 3:
+            errors['length'] = "Title must be at least 3 characters!"
+        if len(form['body']) < 8:
+            errors['length'] = "Post must be at least 8 characters!"   
         return errors
 
 class Post(models.Model):

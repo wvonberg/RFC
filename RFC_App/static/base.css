@@ -76,6 +76,7 @@
     font-weight: bolder;
     font-family:'Trebuchet MS';
     font-size: 24px;
+    box-shadow: 5px 5px 5px rgb(37, 37, 37);
 }
 
 #event-map {
@@ -96,4 +97,27 @@ button {
     text-decoration: none;
     color: rgb(37, 37, 37);
     font-weight: bolder;
+}
+
+.arena-header {
+    display: flex;
+    vertical-align: middle;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25px;
+    background: #b80920;
+    width: 600px;
+    height: 140px;
+    box-shadow: rgb(225, 233, 241) 0px 20px 30px -10px;
+}
+
+.arenah1 {
+    font-family: 'Special Elite', cursive;
+    margin-top: .5em;
+    font-size: 42px;
+    color: rgb(255, 255, 255);
+}
+
+#arena-text {
+    color: white
 }

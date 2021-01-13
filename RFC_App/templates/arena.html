@@ -6,40 +6,16 @@ Arena
 {% endblock %}
 
 {% block content %}
+<br>
 
-
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-CWd07gsMBS06eKpLCoYO3K2X5Q3xWh0&callback=initMap&libraries=&v=weekly" type="text/javascript"></script>
-<script>
-    function initMap() {
-        geocoder = new google.maps.Geocoder();
-        const user_address = document.getElementById('user_address').innerHTML;
-        geocoder.geocode({ 'address': user_address }), function (results, status) {
-            if (status == 'OK') {
-                console.log('results')
-                const latLng = results[0].geometry.location;
-                map = new google.maps.Map(document.getElementById('map'), {
-                    center: latLng,
-                    zoom: 8,
-                });
-                const marker = new google.maps.Marker({ position: location, map: map });
-            } else {
-                alert("ERROR " + status);
-                map = new google.maps.Map(document.getElementById('map'), {
-                    center: location,
-                    zoom: 8,
-                });
-            }
-        }
-    }
-</script>
-
-<style type="text/css">
-    #map {
-        height: 200px;
-        width: 400px;
-    }
-</style> -->
-<h1 class="text-danger text-center">ROBO VAC BATTLE ARENA</h1>
+<div class="d-flex justify-content-center">
+    <div class="arena-header">
+    <h1 class="arenah1">ROBO VAC BATTLE ARENA</h1>
+    </div>
+</div>
+<br>
+<br>
+<!-- <h1 class="text-danger text-center">ROBO VAC BATTLE ARENA</h1> -->
 <div id="forms">
     <div class="form text-light text-center">
         <h2>Create an Event</h2>
@@ -53,21 +29,23 @@ Arena
         </form>
     </div>
 </div>
-    
-{% for request in user_requests %}
-    <table id="arena-table" class="table-bordered text-light">
-        <th>       
-            <td>Event</td>
-            <td>Owner</td>
-            <td>Location</td>
-        </th>
+<table id="arena-table" class="table table-bordered table-hover">
+    <thead class="thead-light">
         <tr>
-            <td></td>
-            <td><a href="/event/{{request.id}}">{{request.bot_name}}</a></td>
+            <th scope="col">Event</th>
+            <th scope="col">Owner</th>
+            <th scope="col">Match Location</th>
+        </tr>
+    </thead>
+    {% for request in user_requests %}
+        <tbody>
+          <tr class="table-light">
+            <th scope="row"><a href="/event/{{request.id}}">{{request.bot_name}}</a></th>
             <td>{{request.owner}}</td>
             <td>{{request.location}}</td>
-        </tr>
-    </table>
+          </tr>
+        </tbody>
+    {% endfor %}
+      </table>
 {{request.id}}
-{% endfor %}
 {% endblock %}
